@@ -1,7 +1,8 @@
-// const playerSelection = "rock";
-let scorePlayer = 0
-let scoreComputer = 0
-let playerSelection = "";
+let scorePlayer = 0;
+let scoreComputer = 0;
+
+const buttons = document.querySelectorAll("button");
+let result = document.getElementById("#result");
 
 function getComputerChoice() {
     let createChoice = ['rock', 'paper', 'scissors']
@@ -10,40 +11,39 @@ function getComputerChoice() {
 
 
 
-function playRound(playerSelection, computerSelection){
-    playerSelection = "rock";
-    if (playerSelection === "rock" && computerSelection === "paper") {
-        return "The computer wins!"
-    } else if (playerSelection === "rock" && computerSelection === "scissors") {
-        return "You win!"
-    } else if (playerSelection === "paper" && computerSelection === "rock") {
-        return "You win!"
-    } else if (playerSelection === "paper" && computerSelection === "scissors") {
-        return "The computer wins!"
-    } else if (playerSelection === "scissors" && computerSelection === "rock") {
-        return "The computer wins!"
-    } else if (playerSelection === "scissors" && computerSelection === "paper") {
-        return "You win!"
-    } else {
-        return "It's a tie!"
+function playRound(playerSelection){
+    if (scoreComputer !== 5 || scorePlayer !== 5) {
+        let computerSelection = getComputerChoice();
+        if ((playerSelection === "rock" && computerSelection === "paper") || 
+            (playerSelection === "paper" && computerSelection === "scissors") || 
+            (playerSelection === "scissors" && computerSelection === "rock")) {
+                scoreComputer += 1;
+                result = `The computer wins! The computer has ${scoreComputer} points and you have ${scorePlayer} points.`;
+        } else if ((playerSelection === "rock" && computerSelection === "scissors") || 
+            (playerSelection === "paper" && computerSelection === "rock") || 
+            (playerSelection === "scissors" && computerSelection === "paper")) {
+                scorePlayer += 1;
+                result = `You win! The computer has ${scoreComputer} points and you have ${scorePlayer} points.`;
+        } else {
+            result = `It's a tie! The computer has ${scoreComputer} points and you have ${scorePlayer} points.`;
+        } 
+    } 
+
+    if (scoreComputer === 5) {
+        result = `The computer has won! Please refresh the page if you want to play again.`;
+    } 
+    if (scorePlayer ===5 ) {
+        result = `You won! Please refresh the page if you want to play again.`;
     }
+    document.getElementById('result').innerHTML = result;
 }
 
 
-function game() {
 
-    for (let i = 0; i <= 4; i++) {
-        let computerSelection = getComputerChoice()
-            playRound(playerSelection, computerSelection)
-            if (playRound === "You win!") {
-                scorePlayer++;
-            } else if (playRound === "The computer wins!") {
-                scoreComputer++;
-            } else {
-                continue;
-        }
-        return console.log("User Score: " + scorePlayer + "/n"+ "Computer score: " + scoreComputer);
-    }
-}
 
-game(playRound);
+
+buttons.forEach(button => {
+    button.addEventListener('click', function() {
+        playRound(button.id);
+    })
+})
