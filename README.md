@@ -1,3 +1,3 @@
 # rock-paper-scissors
 
-Hello. This is a test!
+My first attempt at creating rock-paper-scissors!
