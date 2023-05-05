@@ -35,14 +35,14 @@ function playRound(playerSelection){
     if (scorePlayer ===5 ) {
         result = `You won! Please refresh the page if you want to play again.`;
     }
-    document.getElementById('result').innerHTML = result;
+    document.getElementById('result').innerHTML = result; // Confusing... copied from answers
 }
 
 
 
 
 
-buttons.forEach(button => {
+buttons.forEach(button => { // Copied from answer
     button.addEventListener('click', function() {
         playRound(button.id);
     })
